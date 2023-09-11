@@ -24,7 +24,7 @@ pipeline{
                         "files": [
                             {
                                 "pattern": "**/**/*.*ar",
-                                "target": "project/"
+                                "target": "ram-jfrog/"
                             }
                         ]
                     }'''
