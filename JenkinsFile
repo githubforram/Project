@@ -19,8 +19,8 @@ pipeline{
                 withSonarQubeEnv('Ram') {
                     sh "mvn clean package sonar:sonar"
                 }
-            }
-        }
+            }
+        }
         stage("jfrog"){
             steps{
                 rtUpload(
