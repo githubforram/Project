@@ -14,21 +14,7 @@ pipeline{
                 sh 'mvn clean install -D skipTests=true'
             }
         }
-	stage("jfrog"){
-            steps{
-                rtUpload(
-                    serverId: 'ram-jfrog',
-                    spec: '''{
-                        "files": [
-                            {
-                                "pattern": "**/**/*.*ar",
-                                "target": "ram-jfrog/"
-                            }
-                        ]
-                    }'''
-                )
-            }
-        }
+	
 	stage('dockerbuild'){
 	    steps{
   	        dir("backend"){
