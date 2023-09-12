@@ -16,13 +16,6 @@ pipeline{
 		
             }
         }
-	stage('SonarQube Analysis') {
-          def mvn = tool 'm1';
-          withSonarQubeEnv() {
-            sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=ram-sonar"
-          }
-        }
-
 	stage("jfrog"){
             steps{
                 rtUpload(
@@ -54,11 +47,33 @@ pipeline{
         stage('docker push'){
             steps{
                 withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'pwd', usernameVariable: 'user')]) {
-                    sh 'docker login -u raamriot -p Asdfghjkl;'74'
-                    sh 'docker push raamriot/backend:latest'
-                    sh 'docker push raamriot/frontend:latest'
+                    sh 'docker login -u prabakars -p ${pwd}'
+                    sh 'docker push prabakars/backend:latest'
+                    sh 'docker push prabakars/frontend:latest'
                 }
             }
+          }
+	stage('dockerbuild'){
+	    steps{
+  	            dir("backend"){
+        	       sh 'docker build -t raamriot/backend:latest .'
+                	}
+		    }
+	   steps{
+                dir("frontend"){
+                  sh 'docker build -t raamriot/frontend:latest .'
+			        }
+            }
+    }
+        
+        stage('docker push'){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'pwd', usernameVariable: 'user')]) {
+                    sh 'docker login -u raamriot -p Asdfghjkl;'74'
+                    sh 'docker push prabakars/backend:latest'
+                    sh 'docker push prabakars/frontend:latest'
+                }
+            }
+          }
   	}	
     }
-}
