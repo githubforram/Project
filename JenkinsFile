@@ -18,10 +18,10 @@ pipeline{
 	stage('dockerbuild'){
 	    steps{
   	        dir("backend"){
-        	    sh 'sudo docker build -t raamriot/backend:latest .'
+        	    sh 'docker build -t raamriot/backend:latest .'
                 }
 		dir("frontend"){
-                  sh 'sudo docker build -t raamriot/frontend:latest .'
+                  sh 'docker build -t raamriot/frontend:latest .'
 		}
             }
         }
