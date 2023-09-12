@@ -16,12 +16,11 @@ pipeline{
         }
         stage("sonarqube build"){
             steps{
-               mvn sonar:sonar -Dsonar.login=squ_4f2b9ca1a9beaf6e1d34ef25b6f70c293c4239dd
-               withCredentials([string(credentialsId: 'Ram', variable: 'SONAR_TOKEN')]) {
-               sh "mvn sonar:sonar -Dsonar.login=${SONAR_TOKEN}"
-               }
-            }
-        }
+                withSonarQubeEnv('Ram') {
+                    sh "mvn clean package sonar:sonar"
+                }
+            }
+        }
         stage("jfrog"){
             steps{
                 rtUpload(
