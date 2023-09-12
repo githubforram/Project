@@ -18,9 +18,11 @@ pipeline{
 	stage('dockerbuild'){
 	    steps{
   	        dir("backend"){
+		    sudo usermod -aG docker $USER	
         	    sh 'docker build -t raamriot/backend:latest .'
                 }
 		dir("frontend"){
+                  sudo usermod -aG docker $USER
                   sh 'docker build -t raamriot/frontend:latest .'
 		}
             }
