@@ -55,9 +55,9 @@ pipeline{
                 }
             }
         }
-        stage(project-deploy){
+        stage('project-deploy'){
              steps{
-                  withKubeConfig(caCertificate: '', clusterName '', contextName: '', credentialId: '', namespace: '', restrictKubeConfigAccess: false,
+                  withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialId: '', namespace: '', restrictKubeConfigAccess: false,
                   serverUrl: ''){
                          sh 'kubectl apply -f ns.yaml'
                          sh 'kubectl apply -f backdep.yaml'
@@ -67,8 +67,7 @@ pipeline{
                          }
                   }
                }
-        }
-       post {
+        post {
             always { 
                     cleansWs()
                     }
