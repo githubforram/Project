@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: backdep
+  name: backdep
+  namespace: ram
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backdep
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: backdep
+    spec:
+      containers:
+      - image: raamriot/backend:latest
+        name: backend
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}
